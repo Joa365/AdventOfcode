@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "NkFu44tpLU1scQJkdiH7B60Loprcw+sm+FecRxq/yFoihEHWPS/nJ9xeu3jt7WfORfgHJGIf1BrHpxNj9k8DEg==",
+  "success": true,
+  "projectFilePath": "/home/j/src/adventOfCode2024/AdventOfcode/AdventOfcode/AdventOfcode.csproj",
+  "expectedPackageFiles": [
+    "/home/j/.nuget/packages/csvhelper/33.0.1/csvhelper.33.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
