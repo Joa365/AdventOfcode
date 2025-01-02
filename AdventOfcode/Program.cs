@@ -12,5 +12,6 @@ public class Program
             // day4Part2.CalculateXmax();
 
             Day5Part1 day5Part1 = new Day5Part1(); 
+            day5Part1.RunDay5();
     }
 }
