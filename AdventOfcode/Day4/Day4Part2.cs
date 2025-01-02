@@ -17,9 +17,9 @@ namespace Day4
          char[] xMasReverse = ['S', 'A', 'M'];
         const int xMasLenght = 3;
        
-        string csvFile = "Day4/data4.csv";
+        // string csvFile = "Day4/data4.csv";
         // string csvFile = "Day4/test4.csv";
-        // string csvFile = "testData.csv";
+        string csvFile = "testData.csv";
         // string csvFile = "input9.csv";
         public void CalculateXmax()
         {
