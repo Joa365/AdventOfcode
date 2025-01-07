@@ -1,14 +1,18 @@
 using System;
-namespace AdventOfcode.Day5
-{
-    public class Day5Part1
-    {
-        string line;
-        List<string> codePuzzle = new List<string>();
-        string csvFile = "Day5/input5.csv";
-        // string csvFile = "testData.csv";
+using System.Runtime.CompilerServices;
 
-        public void RunDay5()
+namespace AdventOfcode.Day5;
+
+public class Day5Part2
+{
+    string line;
+        List<string> codePuzzle = new List<string>();
+        List<string> incorrectOrderPages = new List<string>();
+        List<PagesToPrint> pagesToPrint = new List<PagesToPrint>();
+        // string csvFile = "Day5/input5.csv";
+        string csvFile = "testData.csv";
+
+        public void RunDay5Part2()
         {
             ReadDataFromFile();
             SeparateRulesFromManual(codePuzzle);
@@ -87,6 +91,7 @@ namespace AdventOfcode.Day5
                     {
                         if(indexPageOne > indexPageTwo)
                         {
+                            incorrectOrderPages.Add(page);
                             break;
                         }
                     }
@@ -101,7 +106,56 @@ namespace AdventOfcode.Day5
             }
 
             // Console.WriteLine($"{correctInOrderPages.Count()}");
+            SortPages(manuals, incorrectOrderPages);
             MiddelValue(correctInOrderPages);
+        }
+
+        private void SortPages(List<(string pageOne, string pageTwo)> manuals, List<string> pagesToSort)
+        {
+            List<string> pages = pagesToSort.ToList();
+            int i = 0;
+            foreach(var page in pages)
+            {
+                string[] splitPages = page.Split(',');
+                var pagesToPrintItem = new PagesToPrint
+                {
+                    Id = i,
+                    PagesToSort = splitPages
+                };
+                pagesToPrint.Add(pagesToPrintItem); 
+                i ++;
+            }
+            List<PagesToPrint> pagesToSwap = pagesToPrint.ToList();
+            foreach(var page in pagesToSwap)
+            {
+                foreach(var manual in manuals)
+                {
+                    int indexPageOne = Array.IndexOf(page.PagesToSort, manual.pageOne);
+                    int indexPageTwo = Array.IndexOf(page.PagesToSort, manual.pageTwo);
+
+                    if(indexPageTwo != -1 && indexPageTwo !=-1)
+                    {
+                        if(indexPageOne > indexPageTwo)
+                        {
+                            SwapPages(page.Id, indexPageOne, indexPageTwo);
+                        }
+                    }
+
+                }
+                
+            }
+        }
+
+        private void SwapPages(int id, int index1, int index2)
+        {
+            var result = pagesToPrint.Where(x => x.Id == id).Select( p => p.PagesToSort).First();
+
+            string temp = result[index1];
+            result[index1] = result[index2];
+            result[index2] = temp;
+
+            pagesToPrint.Where(x => x.Id == id).Select(p => p.PagesToSort = result.ToArray()).ToList();
+
         }
 
         private void MiddelValue(List<string> correctPages)
@@ -117,5 +171,12 @@ namespace AdventOfcode.Day5
 
             Console.WriteLine($"Wynik obliczen: {sum}");
         }
-    }
+
+       
+}
+
+public class PagesToPrint
+{
+    public int Id {get; set;}
+    public string[] PagesToSort{get; set;}
 }
