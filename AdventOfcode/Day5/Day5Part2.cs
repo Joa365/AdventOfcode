@@ -11,8 +11,7 @@ public class Day5Part2
 
         List<string> codePuzzle = new List<string>();
          List<string> correctInOrderPages = new List<string>();
-        // List<string> incorrectOrderPages = new List<string>();
-        // List<PagesToPrint> pagesToPrint = new List<PagesToPrint>();
+
         string csvFile = "Day5/input5.csv";
         // string csvFile = "testData.csv";
 
@@ -53,12 +52,7 @@ public class Day5Part2
                 if(!string.IsNullOrEmpty(puzzles[i]))
                 {
                     string[] slpitedPuzzle = puzzles[i].Split('|');
-                    // int[] slpitedPuzzle = puzzles[i].Split('|').Select(x => int.Parse(x)).ToArray();
-
-                    // pageOrderingRules.Add((int.Parse(slpitedPuzzle[0]), int.Parse(slpitedPuzzle[1])));
                     pageOrderingRules.Add((slpitedPuzzle[0], slpitedPuzzle[1]));
-
-                    // text.Split('|').Select(x => int.Parse(x));
                 }
                 else
                 {
@@ -80,8 +74,7 @@ public class Day5Part2
 
         private void SelectPagesInCorrectOrder(List<(string pageOne, string pageTwo)> manuals, List<string> pagesToPrint)
         {   
-             callingNumber ++;
-            // List<string> correctInOrderPages = new List<string>();
+            callingNumber ++;
             List<string> incorrectOrderPages = new List<string>();
 
             int maualLenght = manuals.Count();
@@ -109,30 +102,23 @@ public class Day5Part2
                 if(i == maualLenght && callingNumber > 1)
                 {
                     correctInOrderPages.Add(page);
-
-                    
-                    // Console.WriteLine($"{page}");
                 }
             }
 
-            // Console.WriteLine($"{correctInOrderPages.Count()}");
             if(incorrectOrderPages.Count() > 0)
             {
                 SortPages(manuals, incorrectOrderPages);
             }
 
-            // if(callingNumber > 1 && correctInOrderPages.Count() > 0)
-            // {
-            //     MiddelValue(correctInOrderPages);
-            // }
+          
         }
 
         private void SortPages(List<(string pageOne, string pageTwo)> manuals, List<string> pagesToSort)
         {
-            List<string> pages = pagesToSort.ToList();
+            // List<string> pages = pagesToSort.ToList();
              List<PagesToPrint> pageSelectedToSwap = new List<PagesToPrint>();
             int i = 0;
-            foreach(var page in pages)
+            foreach(var page in pagesToSort)
             {
                 string[] splitPages = page.Split(',');
                 var pagesToPrintItem = new PagesToPrint
@@ -161,13 +147,9 @@ public class Day5Part2
                     }
                 }
             }
-
-            //Adding pagesToPrint to the list pages to verify
-
-              pages.Clear();
-                var pages1 = pageSelectedToSwap.Select(x => string.Join(',', x.PagesToSort)).ToList();
-                SelectPagesInCorrectOrder(manuals, pages1);
-            
+            //Adding pageSelectedToSwap to the list pages to verify
+            var pagesToVerify = pageSelectedToSwap.Select(x => string.Join(',', x.PagesToSort)).ToList();
+            SelectPagesInCorrectOrder(manuals, pagesToVerify);
         }
 
         private void SwapPages(int id, int index1, int index2, List<PagesToPrint> pagesSwap )
@@ -192,7 +174,7 @@ public class Day5Part2
                 sum += splitedPages[middleIndex];
             }
 
-            Console.WriteLine($"Wynik obliczen: {sum}");
+            Console.WriteLine($"middle page numbers: {sum}");
         }
 
        
