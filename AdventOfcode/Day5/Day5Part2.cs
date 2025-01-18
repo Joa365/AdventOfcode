@@ -5,12 +5,16 @@ namespace AdventOfcode.Day5;
 
 public class Day5Part2
 {
-    string line;
+        string line;
+        int callingNumber = 0;
+        int sum = 0;
+
         List<string> codePuzzle = new List<string>();
-        List<string> incorrectOrderPages = new List<string>();
-        List<PagesToPrint> pagesToPrint = new List<PagesToPrint>();
-        // string csvFile = "Day5/input5.csv";
-        string csvFile = "testData.csv";
+         List<string> correctInOrderPages = new List<string>();
+        // List<string> incorrectOrderPages = new List<string>();
+        // List<PagesToPrint> pagesToPrint = new List<PagesToPrint>();
+        string csvFile = "Day5/input5.csv";
+        // string csvFile = "testData.csv";
 
         public void RunDay5Part2()
         {
@@ -71,11 +75,15 @@ public class Day5Part2
             }
 
             SelectPagesInCorrectOrder(pageOrderingRules, safetyManual);
+            MiddelValue(correctInOrderPages);
         }
 
         private void SelectPagesInCorrectOrder(List<(string pageOne, string pageTwo)> manuals, List<string> pagesToPrint)
-        {
-            List<string> correctInOrderPages = new List<string>();
+        {   
+             callingNumber ++;
+            // List<string> correctInOrderPages = new List<string>();
+            List<string> incorrectOrderPages = new List<string>();
+
             int maualLenght = manuals.Count();
 
             foreach(string page in pagesToPrint)
@@ -98,21 +106,31 @@ public class Day5Part2
                     i++;
                 }
 
-                if(i == maualLenght)
+                if(i == maualLenght && callingNumber > 1)
                 {
                     correctInOrderPages.Add(page);
+
+                    
                     // Console.WriteLine($"{page}");
                 }
             }
 
             // Console.WriteLine($"{correctInOrderPages.Count()}");
-            SortPages(manuals, incorrectOrderPages);
-            MiddelValue(correctInOrderPages);
+            if(incorrectOrderPages.Count() > 0)
+            {
+                SortPages(manuals, incorrectOrderPages);
+            }
+
+            // if(callingNumber > 1 && correctInOrderPages.Count() > 0)
+            // {
+            //     MiddelValue(correctInOrderPages);
+            // }
         }
 
         private void SortPages(List<(string pageOne, string pageTwo)> manuals, List<string> pagesToSort)
         {
             List<string> pages = pagesToSort.ToList();
+             List<PagesToPrint> pageSelectedToSwap = new List<PagesToPrint>();
             int i = 0;
             foreach(var page in pages)
             {
@@ -122,11 +140,11 @@ public class Day5Part2
                     Id = i,
                     PagesToSort = splitPages
                 };
-                pagesToPrint.Add(pagesToPrintItem); 
+                pageSelectedToSwap.Add(pagesToPrintItem); 
                 i ++;
             }
-            List<PagesToPrint> pagesToSwap = pagesToPrint.ToList();
-            foreach(var page in pagesToSwap)
+            // List<PagesToPrint> pagesToSwap = pageSelectedToSwap.ToList();
+            foreach(var page in pageSelectedToSwap)
             {
                 foreach(var manual in manuals)
                 {
@@ -137,30 +155,35 @@ public class Day5Part2
                     {
                         if(indexPageOne > indexPageTwo)
                         {
-                            SwapPages(page.Id, indexPageOne, indexPageTwo);
+                            SwapPages(page.Id, indexPageOne, indexPageTwo, pageSelectedToSwap);
+                            break;
                         }
                     }
-
                 }
-                
             }
+
+            //Adding pagesToPrint to the list pages to verify
+
+              pages.Clear();
+                var pages1 = pageSelectedToSwap.Select(x => string.Join(',', x.PagesToSort)).ToList();
+                SelectPagesInCorrectOrder(manuals, pages1);
+            
         }
 
-        private void SwapPages(int id, int index1, int index2)
+        private void SwapPages(int id, int index1, int index2, List<PagesToPrint> pagesSwap )
         {
-            var result = pagesToPrint.Where(x => x.Id == id).Select( p => p.PagesToSort).First();
+            var result = pagesSwap.Where(x => x.Id == id).Select( p => p.PagesToSort).First();
 
             string temp = result[index1];
             result[index1] = result[index2];
             result[index2] = temp;
 
-            pagesToPrint.Where(x => x.Id == id).Select(p => p.PagesToSort = result.ToArray()).ToList();
+            pagesSwap.Where(x => x.Id == id).Select(p => p.PagesToSort = result.ToArray()).ToList();
 
         }
 
         private void MiddelValue(List<string> correctPages)
         {
-            int sum = 0;
             foreach(var page in correctPages)
             {
                 int[] splitedPages = page.Split(',').Select(x => int.Parse(x)).ToArray(); 
