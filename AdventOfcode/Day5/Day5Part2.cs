@@ -10,7 +10,7 @@ public class Day5Part2
         int sum = 0;
 
         List<string> codePuzzle = new List<string>();
-         List<string> correctInOrderPages = new List<string>();
+        List<string> correctInOrderPages = new List<string>();
 
         string csvFile = "Day5/input5.csv";
         // string csvFile = "testData.csv";

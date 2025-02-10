@@ -30,7 +30,7 @@ namespace AdventOfCode
             }
             else
             {
-                Console.WriteLine("it's net sorted");
+                Console.WriteLine("it's not sorted");
             }
                 return sorted;
         }
