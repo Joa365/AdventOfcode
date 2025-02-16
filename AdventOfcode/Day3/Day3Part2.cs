@@ -3,10 +3,10 @@ public class Day3Part2
         List<string> codeList = new List<string>();
         List<string> slectMul = new List<string>();
         List<string> lineFreeFromDont = new List<string>();
-        string line;
+        string? line;
         int score = 0;
 
-        string csvFile = "data3.csv";
+        string csvFile = "Day3/data3.csv"; 
         // string csvFile = "testData.csv";
 
         public void ReadDataFromCsvFile()
@@ -32,7 +32,7 @@ public class Day3Part2
                 // Console.WriteLine(item);
                 score += SelectChainOfCode(item);
             }
-            Console.WriteLine($"Score: {score}");
+            Console.WriteLine($"Score part1: {score}");
 
             SplitLine(codeList);
             ScoreCounter(lineFreeFromDont);
@@ -44,7 +44,7 @@ public class Day3Part2
             {
                 scoreSedond += SelectChainOfCode(item);
             }
-            Console.WriteLine($"Score2: {scoreSedond}");
+            Console.WriteLine($"Score part2: {scoreSedond}");
         }
 
 

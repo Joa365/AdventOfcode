@@ -13,10 +13,10 @@ namespace AdventOfcode
     {
         List<string> codeList = new List<string>();
         List<string> slectMul = new List<string>();
-        string line;
+        string? line;
         int score = 0;
 
-        string csvFile = "data3.csv";
+        string csvFile = "Day3/data3.csv";
         // string csvFile = "testData.csv";
 
         public void ReadDataFromCsvFile()
@@ -30,15 +30,14 @@ namespace AdventOfcode
             {
                 //write the line to console window
                 //Console.WriteLine(line)
-                
-                    codeList.Add(line);
+                codeList.Add(line);
                 //Read the next line
                 line = sr.ReadLine();
             }
             //close the file
             sr.Close();
 
-            foreach(var item in codeList)
+            foreach (var item in codeList)
             {
                 // Console.WriteLine(item);
                 score += SelectChainOfCode(item);
@@ -46,7 +45,7 @@ namespace AdventOfcode
             Console.WriteLine($"Score: {score}");
 
             SplitLine(codeList);
-        }   
+        }
 
         private void SplitLine(List<string> codedMul)
         {
@@ -54,69 +53,69 @@ namespace AdventOfcode
         }
         private int SelectChainOfCode(string line)
         {
-             List<(int n1, int n2)> numbers = new List<(int n1, int n2)>();
+            List<(int n1, int n2)> numbers = new List<(int n1, int n2)>();
             string[] sentences = line.Split("mul(");
             int scoreFromLine = 0;
 
-            for( int i = 0; i < sentences.Length; i++)
+            for (int i = 0; i < sentences.Length; i++)
             {
-                List<string> temp = new(); 
+                List<string> temp = new();
                 int number1 = 0;
                 int number2 = 0;
                 string mulSentense;
 
                 mulSentense = sentences[i].ToString();
-           
+
                 // if(!string.IsNullOrEmpty(mulSentense) && !string.IsNullOrWhiteSpace(mulSentense))
                 // {
-                    //  Console.WriteLine(mulSentense);
-                    for(int j=0; j < mulSentense.Length; j++)
+                //  Console.WriteLine(mulSentense);
+                for (int j = 0; j < mulSentense.Length; j++)
+                {
+                    char sing = mulSentense[j];
+                    // Console.WriteLine(sing);
+                    //sprawdzam czy char jest liczba
+
+                    if (Char.IsDigit(sing))
                     {
-                        char sing = mulSentense[j];
-                        // Console.WriteLine(sing);
-                        //sprawdzam czy char jest liczba
-                        
-                        if(Char.IsDigit(sing))
+                        temp.Add(sing.ToString());
+                    }
+                    else if (sing == ',')
+                    {
+                        if (temp.Count > 0)
                         {
-                            temp.Add(sing.ToString());
+                            number1 = Int32.Parse(string.Join("", temp));
+                            temp.Clear();
                         }
-                        else if(sing == ',')
+                    }
+                    else if (sing == ')')
+                    {
+                        if (temp.Count > 0)
                         {
-                            if(temp.Count>0)
-                            {
-                                number1 = Int32.Parse(string.Join("", temp));
-                                temp.Clear();
-                            }
-                        }
-                        else if(sing == ')')
-                        {
-                            if(temp.Count>0)
-                            {
-                                number2 = Int32.Parse(string.Join("", temp));
-                                break;
-                            }
-                        }
-                        else
-                        {
+                            number2 = Int32.Parse(string.Join("", temp));
                             break;
                         }
-                     }
-                       if(number1 != 0 && number2 !=0)
-                       {
-                            numbers.Add((n1: number1, n2: number2));
-                            // Console.WriteLine($"{number1} , {number2}");
-                       }
-                    
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (number1 != 0 && number2 != 0)
+                {
+                    numbers.Add((n1: number1, n2: number2));
+                    // Console.WriteLine($"{number1} , {number2}");
+                }
+
                 // }
             }
-        
-            foreach(var number in numbers)
+
+            foreach (var number in numbers)
             {
                 // Console.WriteLine($"{number.n1}, {number.n2}");
-                scoreFromLine +=(number.n1 * number.n2);
+                scoreFromLine += (number.n1 * number.n2);
 
             }
-           return scoreFromLine; 
+            return scoreFromLine;
         }
     }
-}   
+}

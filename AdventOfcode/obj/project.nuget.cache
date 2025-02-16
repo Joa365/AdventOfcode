@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "N3Q75s2ajWSxYxLZBBRsTZ4U/0kEUEoF6z3DzpbaTcWcLMddrw5zI+gZnOhvyQFkXOS5KMAteTBA4vQChhgaMA==",
+  "dgSpecHash": "JZt4HPHOgvrYEKjCf1Z+dsHOjo9BOQL5A+Y81dVAV6VicYndnR6rbfLVsZqRqta1tnA5sEXwhKAQG8wIjVHAtw==",
   "success": true,
-  "projectFilePath": "/home/j/src/adventOfCode2024/AdventOfcode/AdventOfcode/AdventOfcode.csproj",
+  "projectFilePath": "/home/j/src/AdventOCode2024v1/AdventOfcode/AdventOfcode/AdventOfcode.csproj",
   "expectedPackageFiles": [
     "/home/j/.nuget/packages/csvhelper/33.0.1/csvhelper.33.0.1.nupkg.sha512"
   ],

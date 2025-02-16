@@ -7,7 +7,7 @@ namespace Day4
     public class Day4Part1
     {
         List<string> codePuzzel = new List<string>(); 
-        string line;
+        string? line;
         const int xMasLenght = 4;
         char[] xMas = ['X', 'M', 'A', 'S'];
 

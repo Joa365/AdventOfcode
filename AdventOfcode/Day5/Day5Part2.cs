@@ -5,7 +5,7 @@ namespace AdventOfcode.Day5;
 
 public class Day5Part2
 {
-        string line;
+        string? line;
         int callingNumber = 0;
         int sum = 0;
 
@@ -183,5 +183,5 @@ public class Day5Part2
 public class PagesToPrint
 {
     public int Id {get; set;}
-    public string[] PagesToSort{get; set;}
+    public string[]? PagesToSort{get; set;}
 }

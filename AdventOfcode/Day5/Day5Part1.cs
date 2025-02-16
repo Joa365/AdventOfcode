@@ -3,7 +3,7 @@ namespace AdventOfcode.Day5
 {
     public class Day5Part1
     {
-        string line;
+        string? line;
         List<string> codePuzzle = new List<string>();
         string csvFile = "Day5/input5.csv";
         // string csvFile = "testData.csv";

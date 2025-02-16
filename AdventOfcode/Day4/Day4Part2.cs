@@ -12,7 +12,7 @@ namespace Day4
     public class Day4Part2
     {
         List<string> codePuzzle = new List<string>(); 
-        string line;
+        string? line;
          char[] xMasInput = ['M', 'A', 'S'];
          char[] xMasReverse = ['S', 'A', 'M'];
         const int xMasLenght = 3;
