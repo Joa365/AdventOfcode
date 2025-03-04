@@ -251,7 +251,7 @@ namespace Day4
 
 
 /// <summary>
-/// /Metdoa zwracająca czy przezkazywamnym string puzzel, o indexie index, jest przekazywanym argumnet letter
+/// Method verify if in 'puzzle', on position 'index', the character is the same as 'letter'
 /// </summary>
 /// <param name="puzzel"></param>
 /// <param name="index"></param>
